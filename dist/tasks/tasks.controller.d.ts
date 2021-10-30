@@ -7,4 +7,5 @@ export declare class TasksController {
     getAllTasks(): Task[];
     getTaskById(id: string): Task;
     creatTask(createTaskDto: CreateTaskDto): Task;
+    deleteTask(id: string): void;
 }
