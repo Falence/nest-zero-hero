@@ -1,5 +1,5 @@
 import { CreateTaskDto } from './dto/create-task.dto';
-import { Task } from './task.model';
+import { Task, TaskStatus } from './task.model';
 import { TasksService } from './tasks.service';
 export declare class TasksController {
     private tasksService;
@@ -7,5 +7,6 @@ export declare class TasksController {
     getAllTasks(): Task[];
     getTaskById(id: string): Task;
     creatTask(createTaskDto: CreateTaskDto): Task;
+    updateTask(id: string, status: TaskStatus): Task;
     deleteTask(id: string): void;
 }
