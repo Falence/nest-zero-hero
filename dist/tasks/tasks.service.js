@@ -17,6 +17,19 @@ let TasksService = class TasksService {
     getAllTasks() {
         return this.tasks;
     }
+    getTasksWithFilter(filterDto) {
+        const { status, search } = filterDto;
+        let tasks = this.getAllTasks();
+        if (status) {
+            tasks = tasks.filter((task) => task.status === status);
+        }
+        if (search) {
+            tasks = tasks.filter((task) => {
+                return task.title.includes(search) || task.description.includes(search);
+            });
+        }
+        return tasks;
+    }
     getTaskById(id) {
         return this.tasks.find((task) => task.id === id);
     }
