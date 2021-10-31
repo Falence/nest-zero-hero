@@ -44,7 +44,7 @@ let TasksController = class TasksController {
 };
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)()),
+    __param(0, (0, common_1.Query)(common_1.ValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_tasks_dto_1.GetTasksFilterDto]),
     __metadata("design:returntype", Array)
