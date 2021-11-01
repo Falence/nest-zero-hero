@@ -1,4 +1,5 @@
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskStatus } from './task-status.enum';
 import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
 export declare class TasksController {
@@ -6,5 +7,6 @@ export declare class TasksController {
     constructor(tasksService: TasksService);
     getTaskById(id: number): Promise<Task>;
     creatTask(createTaskDto: CreateTaskDto): Promise<Task>;
+    updateTask(id: number, status: TaskStatus): Promise<Task>;
     deleteTask(id: number): Promise<void>;
 }

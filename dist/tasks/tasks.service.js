@@ -29,6 +29,12 @@ let TasksService = class TasksService {
     async createTask(createTaskDto) {
         return this.taskRepository.createTask(createTaskDto);
     }
+    async updateTask(id, status) {
+        const task = await this.getTaskById(id);
+        task.status = status;
+        await task.save();
+        return task;
+    }
     async deleteTask(id) {
         const result = await this.taskRepository.delete(id);
         if (result.affected === 0)
