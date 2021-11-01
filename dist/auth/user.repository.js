@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
+const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const user_entity_1 = require("./user.entity");
 let UserRepository = class UserRepository extends typeorm_1.Repository {
@@ -15,7 +16,17 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
         const user = new user_entity_1.User();
         user.username = username;
         user.password = password;
-        await user.save();
+        try {
+            await user.save();
+        }
+        catch (error) {
+            if (error.code === '23505') {
+                throw new common_1.ConflictException('User name already exists!');
+            }
+            else {
+                throw new common_1.InternalServerErrorException();
+            }
+        }
     }
 };
 UserRepository = __decorate([
