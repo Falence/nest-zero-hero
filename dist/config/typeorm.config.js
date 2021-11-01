@@ -8,7 +8,7 @@ exports.typeOrmConfig = {
     username: 'postgres',
     password: 'postgres',
     database: 'taskmanagement',
-    entities: [__dirname + '/../**/*.entity.ts'],
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     synchronize: true,
 };
 //# sourceMappingURL=typeorm.config.js.map
