@@ -8,8 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskRepository = void 0;
 const typeorm_1 = require("typeorm");
+const task_status_enum_1 = require("./task-status.enum");
 const task_entity_1 = require("./task.entity");
 let TaskRepository = class TaskRepository extends typeorm_1.Repository {
+    async createTask(createTaskDto) {
+        const { title, description } = createTaskDto;
+        const task = new task_entity_1.Task();
+        task.title = title;
+        task.description = description;
+        task.status = task_status_enum_1.TaskStatus.OPEN;
+        await task.save();
+        return task;
+    }
 };
 TaskRepository = __decorate([
     (0, typeorm_1.EntityRepository)(task_entity_1.Task)

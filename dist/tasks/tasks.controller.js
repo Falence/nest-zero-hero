@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TasksController = void 0;
 const common_1 = require("@nestjs/common");
+const create_task_dto_1 = require("./dto/create-task.dto");
 const tasks_service_1 = require("./tasks.service");
 let TasksController = class TasksController {
     constructor(tasksService) {
@@ -21,6 +22,9 @@ let TasksController = class TasksController {
     }
     getTaskById(id) {
         return this.tasksService.getTaskById(id);
+    }
+    creatTask(createTaskDto) {
+        return this.tasksService.createTask(createTaskDto);
     }
 };
 __decorate([
@@ -30,6 +34,14 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "getTaskById", null);
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_task_dto_1.CreateTaskDto]),
+    __metadata("design:returntype", Promise)
+], TasksController.prototype, "creatTask", null);
 TasksController = __decorate([
     (0, common_1.Controller)('tasks'),
     __metadata("design:paramtypes", [tasks_service_1.TasksService])

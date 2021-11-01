@@ -26,6 +26,9 @@ let TasksService = class TasksService {
             throw new common_1.NotFoundException(`Task with ID ${id} not found!`);
         return found;
     }
+    async createTask(createTaskDto) {
+        return this.taskRepository.createTask(createTaskDto);
+    }
 };
 TasksService = __decorate([
     (0, common_1.Injectable)(),
