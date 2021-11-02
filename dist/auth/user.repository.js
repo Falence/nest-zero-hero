@@ -7,15 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
-const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
+const common_1 = require("@nestjs/common");
+const bcrypt = require("bcrypt");
 const user_entity_1 = require("./user.entity");
 let UserRepository = class UserRepository extends typeorm_1.Repository {
     async signUp(authCredentialsDto) {
         const { username, password } = authCredentialsDto;
         const user = new user_entity_1.User();
         user.username = username;
-        user.password = password;
+        user.salt = await bcrypt.genSalt();
+        user.password = await this.hashPassword(password, user.salt);
         try {
             await user.save();
         }
@@ -27,6 +29,9 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
                 throw new common_1.InternalServerErrorException();
             }
         }
+    }
+    async hashPassword(password, salt) {
+        return await bcrypt.hash(password, salt);
     }
 };
 UserRepository = __decorate([
