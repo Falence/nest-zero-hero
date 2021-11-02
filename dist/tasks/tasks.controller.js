@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TasksController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const create_task_dto_1 = require("./dto/create-task.dto");
 const get_tasks_dto_1 = require("./dto/get-tasks-dto");
 const task_status_validation_pipe_1 = require("./pipes/task-status-validation.pipe");
@@ -78,6 +79,7 @@ __decorate([
 ], TasksController.prototype, "deleteTask", null);
 TasksController = __decorate([
     (0, common_1.Controller)('tasks'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __metadata("design:paramtypes", [tasks_service_1.TasksService])
 ], TasksController);
 exports.TasksController = TasksController;
