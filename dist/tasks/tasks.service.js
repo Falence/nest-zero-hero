@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TasksService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../auth/user.entity");
 const task_repository_1 = require("./task.repository");
 let TasksService = class TasksService {
     constructor(taskRepository) {
@@ -29,8 +30,8 @@ let TasksService = class TasksService {
             throw new common_1.NotFoundException(`Task with ID ${id} not found!`);
         return found;
     }
-    async createTask(createTaskDto) {
-        return this.taskRepository.createTask(createTaskDto);
+    async createTask(createTaskDto, user) {
+        return this.taskRepository.createTask(createTaskDto, user);
     }
     async updateTask(id, status) {
         const task = await this.getTaskById(id);
