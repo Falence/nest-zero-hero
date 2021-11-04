@@ -19,8 +19,6 @@ const get_user_decorator_1 = require("../auth/get-user.decorator");
 const user_entity_1 = require("../auth/user.entity");
 const create_task_dto_1 = require("./dto/create-task.dto");
 const get_tasks_dto_1 = require("./dto/get-tasks-dto");
-const task_status_validation_pipe_1 = require("./pipes/task-status-validation.pipe");
-const task_status_enum_1 = require("./task-status.enum");
 const tasks_service_1 = require("./tasks.service");
 let TasksController = class TasksController {
     constructor(tasksService) {
@@ -29,14 +27,11 @@ let TasksController = class TasksController {
     getTasks(filterDto, user) {
         return this.tasksService.getTasks(filterDto, user);
     }
-    getTaskById(id) {
-        return this.tasksService.getTaskById(id);
+    getTaskById(id, user) {
+        return this.tasksService.getTaskById(id, user);
     }
     creatTask(createTaskDto, user) {
         return this.tasksService.createTask(createTaskDto, user);
-    }
-    updateTask(id, status) {
-        return this.tasksService.updateTask(id, status);
     }
     deleteTask(id) {
         return this.tasksService.deleteTask(id);
@@ -54,8 +49,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)('/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "getTaskById", null);
 __decorate([
@@ -68,14 +64,6 @@ __decorate([
         user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "creatTask", null);
-__decorate([
-    (0, common_1.Patch)(':id/status'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Body)('status', task_status_validation_pipe_1.TaskStatusValidationPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String]),
-    __metadata("design:returntype", Promise)
-], TasksController.prototype, "updateTask", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
