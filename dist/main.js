@@ -8,8 +8,7 @@ async function bootstrap() {
     const logger = new common_1.Logger('bootstrap');
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     const serverConfig = config.get('server');
-    console.log(serverConfig);
-    const port = 3000;
+    const port = process.env.PORT || serverConfig.port;
     await app.listen(port);
     logger.log(`Application listening on port ${port}`);
 }
