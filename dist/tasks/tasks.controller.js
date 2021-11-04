@@ -25,14 +25,17 @@ const tasks_service_1 = require("./tasks.service");
 let TasksController = class TasksController {
     constructor(tasksService) {
         this.tasksService = tasksService;
+        this.logger = new common_1.Logger('TasksController');
     }
     getTasks(filterDto, user) {
+        this.logger.verbose(`User "${user.username}" retrieving all tasks. Filters: ${JSON.stringify(filterDto)}`);
         return this.tasksService.getTasks(filterDto, user);
     }
     getTaskById(id, user) {
         return this.tasksService.getTaskById(id, user);
     }
     creatTask(createTaskDto, user) {
+        this.logger.verbose(`User "${user.username}" creating new task. Data: ${JSON.stringify(createTaskDto)}`);
         return this.tasksService.createTask(createTaskDto, user);
     }
     updateTask(id, status, user) {

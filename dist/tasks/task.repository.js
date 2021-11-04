@@ -7,11 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskRepository = void 0;
+const common_1 = require("@nestjs/common");
 const user_entity_1 = require("../auth/user.entity");
 const typeorm_1 = require("typeorm");
 const task_status_enum_1 = require("./task-status.enum");
 const task_entity_1 = require("./task.entity");
 let TaskRepository = class TaskRepository extends typeorm_1.Repository {
+    constructor() {
+        super(...arguments);
+        this.logger = new common_1.Logger('TaskRepository');
+    }
     async getTasks(filterDto, user) {
         const { status, search } = filterDto;
         const query = this.createQueryBuilder('task');
@@ -22,8 +27,14 @@ let TaskRepository = class TaskRepository extends typeorm_1.Repository {
         if (search) {
             query.andWhere('(task.title LIKE :search OR task.description LIKE :search)', { search: `%${search}%` });
         }
-        const tasks = await query.getMany();
-        return tasks;
+        try {
+            const tasks = await query.getMany();
+            return tasks;
+        }
+        catch (error) {
+            this.logger.error(`Failed to get tasks for user ${user.username}. DTO: ${JSON.stringify(filterDto)}`, error.stack);
+            throw new common_1.InternalServerErrorException('Something went wrong!');
+        }
     }
     async createTask(createTaskDto, user) {
         const { title, description } = createTaskDto;
@@ -32,7 +43,13 @@ let TaskRepository = class TaskRepository extends typeorm_1.Repository {
         task.description = description;
         task.status = task_status_enum_1.TaskStatus.OPEN;
         task.user = user;
-        await task.save();
+        try {
+            await task.save();
+        }
+        catch (error) {
+            this.logger.error(`Failed to create a task for user "${user.username}". Data: ${createTaskDto}`, error.stack);
+            throw new common_1.InternalServerErrorException();
+        }
         delete task.user;
         return task;
     }
