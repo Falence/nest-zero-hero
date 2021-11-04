@@ -11,5 +11,5 @@ export declare class TasksController {
     getTaskById(id: number, user: User): Promise<Task>;
     creatTask(createTaskDto: CreateTaskDto, user: User): Promise<Task>;
     updateTask(id: number, status: TaskStatus, user: User): Promise<Task>;
-    deleteTask(id: number): Promise<void>;
+    deleteTask(id: number, user: User): Promise<void>;
 }

@@ -38,8 +38,8 @@ let TasksController = class TasksController {
     updateTask(id, status, user) {
         return this.tasksService.updateTask(id, status, user);
     }
-    deleteTask(id) {
-        return this.tasksService.deleteTask(id);
+    deleteTask(id, user) {
+        return this.tasksService.deleteTask(id, user);
     }
 };
 __decorate([
@@ -81,8 +81,9 @@ __decorate([
 __decorate([
     (0, common_1.Delete)('/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "deleteTask", null);
 TasksController = __decorate([

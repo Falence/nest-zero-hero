@@ -39,8 +39,8 @@ let TasksService = class TasksService {
         await task.save();
         return task;
     }
-    async deleteTask(id) {
-        const result = await this.taskRepository.delete(id);
+    async deleteTask(id, user) {
+        const result = await this.taskRepository.delete({ id, userId: user.id });
         if (result.affected === 0)
             throw new common_1.NotFoundException(`Task with ID ${id} not found`);
     }
