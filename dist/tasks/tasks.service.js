@@ -21,8 +21,8 @@ let TasksService = class TasksService {
     constructor(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    async getTasks(filterDto) {
-        return await this.taskRepository.getTasks(filterDto);
+    async getTasks(filterDto, user) {
+        return await this.taskRepository.getTasks(filterDto, user);
     }
     async getTaskById(id) {
         const found = await this.taskRepository.findOne(id);

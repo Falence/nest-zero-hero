@@ -12,9 +12,10 @@ const typeorm_1 = require("typeorm");
 const task_status_enum_1 = require("./task-status.enum");
 const task_entity_1 = require("./task.entity");
 let TaskRepository = class TaskRepository extends typeorm_1.Repository {
-    async getTasks(filterDto) {
+    async getTasks(filterDto, user) {
         const { status, search } = filterDto;
         const query = this.createQueryBuilder('task');
+        query.where('task.userId = :userId', { userId: user.id });
         if (status) {
             query.andWhere('task.status = :status', { status });
         }

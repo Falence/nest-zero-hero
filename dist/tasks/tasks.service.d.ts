@@ -7,7 +7,7 @@ import { TaskRepository } from './task.repository';
 export declare class TasksService {
     private taskRepository;
     constructor(taskRepository: TaskRepository);
-    getTasks(filterDto: GetTasksFilterDto): Promise<Task[]>;
+    getTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]>;
     getTaskById(id: number): Promise<Task>;
     createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task>;
     updateTask(id: number, status: TaskStatus): Promise<Task>;

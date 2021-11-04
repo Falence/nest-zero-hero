@@ -4,6 +4,6 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-dto';
 import { Task } from './task.entity';
 export declare class TaskRepository extends Repository<Task> {
-    getTasks(filterDto: GetTasksFilterDto): Promise<Task[]>;
+    getTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]>;
     createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task>;
 }
