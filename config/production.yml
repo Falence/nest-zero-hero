@@ -1,2 +1,5 @@
+server:
+  origin: http://task-management-falence.s3-website-eu-west-1.amazonaws.com
+
 db:
   synchronize: false
